@@ -1,0 +1,7 @@
+/* 全局作用域 默认全局的变量*/
+:root{
+  --middle-width:1200px;
+  --headbar-height:66px;
+  --headbar-bg:#4928DD;
+  --menu-active-bg:#4950DD;
+}

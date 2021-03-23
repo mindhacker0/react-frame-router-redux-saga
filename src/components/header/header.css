@@ -1,0 +1,24 @@
+.head-wrap{
+    height:var(--headbar-height);
+    background: var(--headbar-bg);
+}
+.head-content{
+    display: flex;
+    justify-content: space-between;
+}
+.left-span{
+    display: flex;
+}
+.menu-wrap{
+    display: flex;
+}
+.menu-item{
+    width: 84px;
+    text-align: center;
+    cursor: pointer;
+    height:var(--headbar-height);
+    line-height:var(--headbar-height);
+}
+.menu-item-active{
+   background: var(--menu-active-bg);
+}

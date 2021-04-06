@@ -1,0 +1,21 @@
+.table-wrap{
+    margin-top:160px;
+    padding: 10px 10px 40px;
+}
+.entity-design-wrap{
+    
+}
+.entity-design-container{
+   
+}
+.left-table{
+    vertical-align: top;
+    display: inline-block;
+    width: 824px;
+}
+.rightTable{
+    vertical-align: top;
+    display: inline-block;
+    width: 328px;
+    margin-left: 28px;
+}

@@ -1,7 +1,7 @@
 import React from 'react';
-
+import ProgramClass from '../containers/programClass';
 export default () => {
   return (
-    <div>编程课堂</div>
+   <ProgramClass />
   );
 };

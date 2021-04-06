@@ -1,0 +1,38 @@
+.login-bar{
+   display: flex;
+   height: var(--headbar-height);
+   justify-content: flex-start;
+   align-items: center;
+   font-size: 14px;
+   padding-right: 30px;
+}
+:global([class*="login-bar"] .submenu-0){
+    z-index: 2;
+}
+.login-btn{
+    padding: 0 10px;
+    height:var(--headbar-height);
+    line-height: var(--headbar-height);
+    cursor: pointer;
+}
+.login-btn:hover{
+   background:var(--menubar-active-bg);
+}
+.user-icon{
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.user-info{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.user-icon img{
+    width: 34px;
+    height: 34px;
+}
+.user-name{
+    margin-left: 5px;
+}

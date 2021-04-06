@@ -1,7 +1,7 @@
 import React from 'react';
-
+import EntityDesign from '../containers/entityDesign';
 export default () => {
   return (
-    <div>实物制作</div>
+    <EntityDesign />
   );
 };

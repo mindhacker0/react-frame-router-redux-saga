@@ -1,0 +1,48 @@
+.component-wrap{
+    display: flex;
+}
+.component-banner img{
+    width: 856px;
+    display: block;
+}
+.component-user{
+    padding-left:28px;
+}
+.component-user-info{
+    text-align: center;
+}
+.btn-wrap{
+    margin-top: 30px;
+}
+.btn-wrap .btn{
+    width: 150px;
+    height: 50px;
+    line-height: 50px;
+    display: inline-block;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    color: #ffffff;
+    border-radius: 10px;
+    cursor: pointer;
+    user-select: none;
+}
+.component-avatar{
+    padding: 20px 0;
+}
+.component-avatar img{
+    width: 90px;
+}
+.component-line{
+    font-size: 18px;
+    color: #666666;
+    line-height: 25px;
+    padding: 10px 0;
+}
+.blue-btn{
+    background: #3E44BC;
+}
+.yellow-btn{
+    background: #FCAC33;
+    margin-left: 16px;
+} 

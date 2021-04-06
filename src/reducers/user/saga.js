@@ -1,71 +1,109 @@
 import { takeEvery, select, put } from 'redux-saga/effects';
-import { GET, POST } from '../../lib/request';
+import request from "../../lib/request";
 import {
-	USER_GETINFO,
-	setInfo,
-	USER_GETUSERPROJECTS,
-	setUserProjects,
-	USER_GETUPLOADTOKEN,
-	setUploadToken,
-	USER_UPDATETOKEN,
+	GET_USER_PROJECTS,
+	GET_USER_PARTICIPANT,
+	ADD_USER_REPORTFORM,
+	GET_USER_SAVEPROJECT,
+	GET_VIDEO_CLASS,
+	setProjectList,
+	setParticipant,
+	setVideoClass,
+	setOrderProjectList,
+	setSaveProject,
+	SUBMIT_USER_PROJECT
 } from './constant';
-//import { toggleLogin } from '../layout/constant';
 
 /*function* login(action) {
    const state = yield select();
    console.log(state);
 }*/
-var getUserInfo,getUserProjects,getQiniuToken,updateUserToken;
-function* fetchUserInfo() {
-	const { isSuccess, result, errors } = yield GET(`${getUserInfo}/${localStorage.userId}`);
+var getUserProjects = "/api/maker/GetMakerProjectPageList";
+var getParticipantInfo = "/api/maker/GetParticipant";
+var addParticipantAsync = "/api/maker/AddParticipantAsync";
+var addMakerProjectAsync = "/api/maker/AddMakerProjectAsync";
+var getMakerProject = "/api/maker/GetMakerProject";
+var getMakerCoursePageList = "/api/maker/GetMakerCoursePageList";
+function* fetchUserProjects({ type, payload:{params} }) {
+	const { isSuccess, result, errors } = yield request(getUserProjects,{
+		method: "GET",
+		params: params
+	});
 	if (isSuccess) {
-		yield put(setInfo({ username: result.name, avatar: result.headUrl }));
-	}
-}
-
-function* fetchUserProjects() {
-	const query = `?type=1&userid=${localStorage.userId}&PageIndex=1&PageSize=200`;
-	const { isSuccess, result, errors } = yield GET(getUserProjects+query);
-	if (isSuccess) {
-		if (result.total) {
-			yield put(setUserProjects({ projects: result.items }));
-			yield put({ type: USER_GETUPLOADTOKEN });
+		if (result.total){
+			if(params.OrderColumn){
+				yield put(setOrderProjectList({orderProject:result.data}));
+			}else{
+				yield put(setProjectList({projects:result.data}));
+			}
 		} else {
-			alert('暂无作品，无法报名');
+			console.error("request error "+errors);
 		}
 	}
 }
 
-function* fetchUploadToken() {
-	const { isSuccess, result, errors } = yield GET(getQiniuToken);
+function* fetchParticipant({ type, payload}) {
+	const { isSuccess, result, errors } = yield request.get(getParticipantInfo);
 	if (isSuccess) {
-		yield put(setUploadToken({ token: result.token }));
+		yield put(setParticipant({participantInfo:result}));
+	}else{
+		console.error("request error "+errors);
+		yield put(setParticipant({participantInfo:{}}));
 	}
 }
 
-function* updateToken({ payload: { type } }) {
-	const { status, data } = yield POST(updateUserToken, {
-		token: localStorage.access_token,
+function* fetchMakerProject({ type, payload}) {
+	const params =`?ProjectType=${payload.projectType}`;
+	const { isSuccess, result, errors } = yield request.get(getMakerProject+params);
+	if (isSuccess){
+		yield put(setSaveProject({saveProject:result}));
+	}else{
+		console.error("request error "+errors);
+		yield put(setSaveProject({saveProject:{}}));
+	}
+}
+
+function* addUserForm({ type, payload}) {
+	const { isSuccess, result, errors } = yield request(addParticipantAsync,{
+		method: "POST",
+		data: {...payload.params}
 	});
-	if (status === 'ok') {
-		localStorage.access_token = data.access_token;
-		yield put({ type });
-	} else {
-		// login
-		alert('登录已过期，请重新登录！');
-		//yield put(toggleLogin({ shouldLogin: true }));
+	if(isSuccess) {
+	
 	}
 }
 
-/*
-  Starts fetchUser on each dispatched `USER_FETCH_REQUESTED` action.
-  Allows concurrent fetches of user.
-*/
+function* submitProject({ type, payload}) {
+	const { isSuccess, result, errors } = yield request(addMakerProjectAsync,{
+		method: "POST",
+		data: {...payload.params}
+	});
+	console.log("submit project",result);
+	if (isSuccess) {
+		
+	}
+}
+
+function* fetchVideoClass({ type, payload:{params} }) {
+	const { isSuccess, result, errors } = yield request(getMakerCoursePageList,{
+		method: "GET",
+		params: params
+	});
+	if (isSuccess) {
+		yield put(setVideoClass({videoClassList:result.data}));
+	} else {
+		console.error("request error "+errors);
+	}
+
+}
+
 function* userSaga() {
-  yield takeEvery(USER_UPDATETOKEN, updateToken);
-  yield takeEvery(USER_GETINFO, fetchUserInfo);
-  yield takeEvery(USER_GETUSERPROJECTS, fetchUserProjects);
-  yield takeEvery(USER_GETUPLOADTOKEN, fetchUploadToken);
+  yield takeEvery(GET_USER_PROJECTS, fetchUserProjects);
+  yield takeEvery(GET_USER_PARTICIPANT, fetchParticipant);
+  yield takeEvery(ADD_USER_REPORTFORM, addUserForm);
+  yield takeEvery(SUBMIT_USER_PROJECT, submitProject);
+  yield takeEvery(GET_USER_SAVEPROJECT, fetchMakerProject);
+  yield takeEvery(GET_VIDEO_CLASS, fetchVideoClass);
 }
 
 export default userSaga;

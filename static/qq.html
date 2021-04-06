@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>QQ LOGIN</title>
+  </head>
+  <body>
+    <script>
+      const hash = window.location.search.slice(1);
+      if (hash) {
+        window.opener.location.hash = `#${hash}&logintype=qq`;
+      }
+      window.close();
+    </script>
+  </body>
+</html>

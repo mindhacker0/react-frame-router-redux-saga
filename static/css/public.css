@@ -1,3 +1,6 @@
+.content{
+  min-height:calc(100vh - 150px - var(--headbar-height));
+}
 .one-line{
     overflow:hidden;
     text-overflow: ellipsis;

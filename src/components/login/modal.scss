@@ -1,0 +1,139 @@
+$ui-white-transparent: hsla(
+  0,
+  100%,
+  100%,
+  0.25
+); /* 25% transparent version of ui-white */
+$ui-primary: hsla(215, 100%, 95%, 1); /* #E5F0FF */
+$ui-secondary: hsla(215, 75%, 95%, 1); /* #E9F1FC */
+$ui-tertiary: hsla(215, 50%, 90%, 1); /* #D9E3F2 */
+$motion-primary: hsla(215, 100%, 65%, 1); /* #4C97FF */
+
+$library-header-height: 3.125rem;
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 999;
+  background-color: hsla(0, 0%, 0%, 0.2);
+}
+
+.modal-content * {
+  box-sizing: border-box;
+}
+.modal-content {
+  position: relative;
+  background: #fff;
+  // border: 1px solid #d0c8c2;
+  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.5);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  border-radius: 30px 30px 0px 0px;
+}
+
+.modal-content.full-screen {
+  position: absolute;
+
+  display: flex;
+  height: 100%;
+  width: 100%;
+
+  overflow-y: auto;
+  -webkit-overflow-scrolling: "touch";
+  user-select: none;
+
+  background-color: $ui-secondary;
+
+  /* Default modal resets */
+  margin: 0;
+  border: none;
+  border-radius: 0;
+}
+
+/*
+    Modal header has 3 items:
+    |filter     title       x|
+
+    Use the same width for both side item containers,
+    so that title remains centered
+*/
+$sides: 20rem;
+
+.header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  height: $library-header-height;
+  box-sizing: border-box;
+  width: 100%;
+  background-color: var(--menubar-background-color);
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: normal;
+  border-radius: 30px 30px 0px 0px;
+  height: 80px;
+}
+
+.header-item {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  text-decoration: none;
+  font-size: 18px;
+  font-family: Microsoft YaHei;
+  font-weight: 400;
+  color: rgba(254, 255, 255, 1);
+  user-select: none;
+}
+.header-image {
+  margin-right: 0.5rem;
+}
+.header-item-filter {
+  display: flex;
+  flex-basis: $sides;
+  justify-content: flex-start;
+}
+
+.header-item-title {
+  flex-grow: 1;
+  flex-shrink: 0;
+  justify-content: center;
+  user-select: none;
+  letter-spacing: 0.4px;
+  cursor: default;
+}
+
+.header-item-title {
+  margin: 0 (-$sides) 0 0;
+}
+
+.full-screen .header-item-title {
+  margin: 0 0 0 (-$sides);
+}
+
+.header-item-close {
+  flex-basis: $sides;
+  justify-content: flex-end;
+  z-index: 1;
+}
+
+.full-screen .header-item-close {
+  order: -1;
+  justify-content: flex-start;
+}
+
+.back-button {
+  font-weight: normal;
+  padding-left: 0;
+}

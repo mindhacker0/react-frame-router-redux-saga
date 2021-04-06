@@ -8,6 +8,7 @@ const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const autoprefixer = require("autoprefixer");
 const postcssVars = require("postcss-simple-vars");
 const postcssImport = require("postcss-import");
+const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
 module.exports={
 	entry:"./src/main/index.js",
 	output: {
@@ -20,11 +21,16 @@ module.exports={
 		port: process.env.PORT || 8085,
 		historyApiFallback:true
 	},
+	resolve:{
+		alias:{
+			"@":path.resolve("src")
+		 },
+	},	
 	plugins: [
 		new webpack.DefinePlugin({
 		  "process.env": {
 			NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-			baseUrl: devmode ? "'http://192.168.1.222:80'" : "''",
+			baseUrl: devmode ? "'http://192.168.1.198:8016'" : "''",
 		  },
 		}),
 		new HtmlWebpackPlugin({
@@ -92,7 +98,26 @@ module.exports={
 				],
 			},
 			{
-				test: /\.(css|less)$/,
+				test: /\.less$/,
+				use: [
+					"style-loader",
+					{
+						loader: "css-loader",
+						options: {	
+							importLoaders: 3,
+							modules: {
+								getLocalIdent: getCSSModuleLocalIdent,
+							},
+						},
+					},
+					{
+						loader: "less-loader",
+						options: { sourceMap: true,},
+					},
+				],
+			},
+			{
+				test: /\.css$/,
 				use: [
 					{
 					   loader: "style-loader",

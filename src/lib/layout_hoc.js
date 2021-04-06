@@ -2,17 +2,15 @@ import React from "react";
 import { connect } from "react-redux";
 import Header from "../containers/header";
 import Footer from "../containers/footer";
-import * as browserHistory from 'react-router';
 const LayoutHoc=(WrappedComponent)=>{
     class AppWapper extends React.Component{
         constructor(props){
             super(props);
         }
         render(){
-            const {...componentProps} = this.props;
-            console.log(browserHistory,this.props);
+            const {history,location,...componentProps} = this.props;
             return  <div className='app-layout'>
-                    <Header />
+                    <Header history={history} location={location}/>
                     <div className='content'><WrappedComponent { ...componentProps }/></div>
                     <Footer />
                 </div>

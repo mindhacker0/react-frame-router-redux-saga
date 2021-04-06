@@ -1,10 +1,7 @@
 import React from 'react';
-
-export default ({history}) => {
- console.log(history);
+import HomeWrap from '../containers/home';
+export default () => {
   return (
-    <div>
-     
-    </div>
+    <HomeWrap />
   );
 };

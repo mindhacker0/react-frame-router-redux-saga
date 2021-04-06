@@ -1,29 +1,66 @@
-import { USER_SETINFO, USER_SETUSERPROJECTS, USER_SETUPLOADTOKEN } from './constant';
+import { 
+	SET_USER_SESSION, 
+	SET_USER_PROJECTS,
+	SET_USER_ORDERPROJECT,
+	SET_USER_PARTICIPANT,
+	SET_USER_ISLOGIN,
+	SET_USER_MENUPATH,
+	SET_VIDEO_CLASS,
+	SET_USER_SAVEPROJECT
+} from './constant';
 
 const initialState = {
-	username: '',
-	avatar: '',
 	projects: [],
-	token: '',
+	orderProject:[],
+	userMenuPath:[],
+	videoClassList:[],
+	isLogin:false,
+    session:{},
+	participantInfo:{},
+	saveProject:{}
 };
 
 export default (state = initialState, { type, payload }) => {
 	switch (type) {
-		case USER_SETINFO:
+		case SET_USER_SESSION:
 			return {
 				...state,
-				username: payload.username,
-				avatar: payload.avatar,
+				session: payload.session,
 			};
-		case USER_SETUSERPROJECTS:
+		case SET_VIDEO_CLASS:
+			return {
+				...state,
+				videoClassList: payload.videoClassList,
+			};
+		case SET_USER_PROJECTS:
 			return {
 				...state,
 				projects: payload.projects,
 			};
-		case USER_SETUPLOADTOKEN:
+		case SET_USER_ORDERPROJECT:
 			return {
 				...state,
-				token: payload.token,
+				orderProject: payload.orderProject,
+			};
+		case SET_USER_ISLOGIN:
+			return {
+				...state,
+				isLogin: payload.isLogin,
+			};
+		case SET_USER_MENUPATH:
+			return {
+				...state,
+				userMenuPath: payload.userMenuPath,
+			};
+		case SET_USER_PARTICIPANT:
+			return {
+				...state,
+				participantInfo: payload.participantInfo,
+			};
+		case SET_USER_SAVEPROJECT:
+			return {
+				...state,
+				saveProject: payload.saveProject,
 			};
 		default:
 			return state;

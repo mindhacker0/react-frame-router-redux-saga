@@ -1,28 +1,37 @@
 import React from "react";
 import { connect } from "react-redux";
-// import { closeModal } from "../store/GUI/actions";
-// import ColorSelectModalWrap from "../container/colorSelectModal";
+import { closeModal } from "../reducers/frame/constant";
+import UserLogin from "../containers/login";
+import NoticeModal from "../components/noticeModal";
+import VideoModal from "../components/videoModal";
+import ProjectModal from "../components/projectModal";
 const ModalHoc=(WrappedComponent)=>{
     class AppWapper extends React.Component{
         constructor(props){
             super(props);
         }
         render(){
-            const { colorSelectModal,closeModal,...componentProps} = this.props;
+            const {loginModal,noticeModal,videoModal,projectModal,closeModal,...componentProps} = this.props;
             return  <div className="modals-wear">
-            {/* <ColorSelectModalWrap isOpen={colorSelectModal} onClose={()=>{closeModal("colorSelectModal")}}/> */}
+            {loginModal ? <UserLogin onRequestClose={()=>{closeModal("loginModal")}} /> : null}
+            <NoticeModal isOpen={noticeModal} onClose={()=>{closeModal("noticeModal")}}/>
+            <ProjectModal isOpen={projectModal} onClose={()=>{closeModal("projectModal")}}/>
+            <VideoModal isOpen={videoModal} onClose={()=>{closeModal("videoModal")}}/>
             <WrappedComponent { ...componentProps }/>
         </div>
         }
     }
     const mapStateToProps = (state) => {
-        // const {colorSelectModal}=state.GUIConfig;
+        const {loginModal,noticeModal,videoModal,projectModal}=state.frame;
         return {
-            // colorSelectModal:colorSelectModal,
+            loginModal:loginModal,
+            noticeModal:noticeModal,
+            videoModal:videoModal,
+            projectModal:projectModal
         }
     };
     const mapDispatchToProps = (dispatch) => ({
-        // closeModal:(modalName)=>dispatch(closeModal(modalName))
+        closeModal:(modalName)=>dispatch(closeModal({modalName}))
     });
     return connect(mapStateToProps, mapDispatchToProps)(AppWapper);
 }

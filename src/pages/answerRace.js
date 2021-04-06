@@ -1,7 +1,7 @@
 import React from 'react';
-
+import AnswerRace from '../containers/answerRace';
 export default () => {
   return (
-    <div>竞赛答题</div>
+  <AnswerRace />
   );
 };

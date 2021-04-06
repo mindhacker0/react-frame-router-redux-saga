@@ -1,7 +1,7 @@
 import React from 'react';
-
+import CreativeProgram from '../containers/creativeProgram';
 export default () => {
   return (
-    <div>创意编程</div>
+  <CreativeProgram />
   );
 };
